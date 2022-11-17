@@ -20,6 +20,8 @@ const movieOne = {
 const App = () => {
 
   const [movies, setMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('')
+
 
   // calling the endpoint to search
   const searchMovies = async (title) => {
@@ -39,24 +41,24 @@ const App = () => {
       <h1>MovieLand</h1>
 
       <div className='search'>
-        <input placeholder='Search for Movies' value="Superman" onChange={() => { }} />
+        <input placeholder='Search for Movies' value={searchTerm} onChange={(e) => {setSearchTerm(e.target.value)}} />
 
-        <img src={SearchIcon} alt="Search" onClick={() => { }} />
+        <img src={SearchIcon} alt="Search" onClick={() => searchMovies(searchTerm)} />
       </div>
 
       {
         movies?.length > 0
-        ? (
-          <div className='container'>
-            {movies.map((movie) => (
-              <MovieCard movie = {movie}/>
-            ))}
-         </div>
-        ) : (
-          <div className='empty'> 
-            <h2> No movie found</h2>
-          </div>
-        )
+          ? (
+            <div className='container'>
+              {movies.map((movie) => (
+                <MovieCard movie={movie} />
+              ))}
+            </div>
+          ) : (
+            <div className='empty'>
+              <h2> No movie found</h2>
+            </div>
+          )
       }
     </div>
   );
